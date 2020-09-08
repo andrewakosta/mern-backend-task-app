@@ -1,15 +1,16 @@
 const express = require('express')
-const { response } = require('express')
+const connetionDB =  require('./config/db')
 
 //Created server
 const app = express()
 
+//connection to data base
+connetionDB()
 //Port of app
 const PORT =process.env.PORT || 4000
 
-app.get('/', (request, response) => {
-    console.log('putos')
-    response.send('MERM Tasks')
+app.get('/', (req, res) => {
+    res.send('MERM Tasks')
 })
 //start app 
 app.listen(PORT, () => {
