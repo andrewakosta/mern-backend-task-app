@@ -8,6 +8,9 @@ const app = express()
 connetionDB()
 //Port of app
 const PORT =process.env.PORT || 4000
+ 
+//Import paths
+app.use('/api/users', require('./router/users'))
 
 app.get('/', (req, res) => {
     res.send('MERM Tasks')
