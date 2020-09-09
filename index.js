@@ -6,6 +6,9 @@ const app = express()
 
 //connection to data base
 connetionDB()
+
+//enable express.json
+app.use(express.json({extended : true}))
 //Port of app
 const PORT =process.env.PORT || 4000
  

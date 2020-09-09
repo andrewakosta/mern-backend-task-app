@@ -1,3 +1,5 @@
 exports.createUser = (req,res) => {
-    console.log('From user')
+    console.log(req.body)
+    res.body = 'puto el que lo lea'
+    return res
 }
