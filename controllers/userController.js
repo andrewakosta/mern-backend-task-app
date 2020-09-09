@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const {validationResult} = require('express-validator')
+const jwt = require('jsonwebtoken')
 
 
 exports.createUser =  async (req,res) => {
@@ -25,7 +26,23 @@ exports.createUser =  async (req,res) => {
         //Save user
         await user.save()
 
-        res.json({msg:'The user was created'})
+        //Create an firm the JWT
+        const payload = {
+            user:{
+                id:user.id
+            }
+        }
+        //Firm the JWT
+        jwt.sign(payload, process.env.SECRET, {
+            expiresIn:3600
+        },(error, token) => {
+            if(error) throw error
+
+            //confiramtion message
+            res.json({token})
+        })
+
+    
     } catch (error) {
         console.log(error)
         res.json({
