@@ -12,10 +12,7 @@ const PORT =process.env.PORT || 4000
 //Import paths
 app.use('/api/users', require('./router/users'))
 
-app.get('/', (req, res) => {
-    res.send('MERM Tasks')
-})
 //start app 
 app.listen(PORT, () => {
-    console.log('The server is runing on the port 4000')
+    console.log('----------------------The server is runing on the port 4000---------------------')
 })

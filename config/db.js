@@ -9,7 +9,7 @@ const connetionDB = async ()=> {
            useUnifiedTopology:true,
            useFindAndModify:false 
         })
-        console.log('Connection ssuccesful')
+        console.log('----------------------Connection ssuccesful----------------------')
     } catch (error) {
         console.log(error)
         process.exit(1)
