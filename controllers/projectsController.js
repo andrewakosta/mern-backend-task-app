@@ -73,3 +73,26 @@ exports.updateProjectById = async (req, res) => {
         return res.status(500).json({msg:'Internal server error'})
     }
 }
+
+//Delete a project 
+ exports.deleteProject = async (req, res) => {
+     try {
+        //Check by ID
+        let project = await Project.findById(req.params.id)
+        
+        //Check if porject exist or not
+        if(!project){
+            return res.status(404).json({msg: 'Project not found'})
+        }
+        //Check by the creator of project
+        if(project.creator.toString() !==  req.user.id){
+            return res.status(401).json({msg:'Unathorized access'})
+        }
+        //Delete the project
+        await Project.findByIdAndRemove({_id:req.params.id})
+        res.json({msg:'Project remove ssuccesful'})
+     } catch (error) {
+        console.log(error)
+        return res.status(500).send('Internagl server error')
+     }
+ }
