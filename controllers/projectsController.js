@@ -30,7 +30,12 @@ exports.getAllProjects = async (req, res) => {
         
         const projects = await Project.find({creator: req.user.id})
         res.json({projects})
-    } catch (error) {
+    } catch (error){
         console.log(error)
     }
+}
+
+//Update a project by id 
+const updateProjectById = async (req, res)=>{
+    console.log('The testing son of a bitch')
 }

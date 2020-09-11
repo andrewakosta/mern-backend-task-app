@@ -12,9 +12,19 @@ router.post('/',
     auth,
     projectsController.createProject
 )
+
+//Get all projects 
 router.get('/',
     auth,
     projectsController.getAllProjects
+)
+//update a project by ID
+router.get('/:id',
+    auth, 
+    [
+        check('name', "THe project's name is mandatory").not().isEmpty()
+    ], 
+    projectsController.updateProjectById
 )
 
 
