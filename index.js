@@ -16,6 +16,7 @@ const PORT =process.env.PORT || 4000
 app.use('/api/users', require('./router/users'))
 app.use('/api/auth', require('./router/auth'))
 app.use('/api/projects',require('./router/projects'))
+app.use('/api/tasks', require('./router/tasks'))
 //start app 
 app.listen(PORT, () => {
     console.log('----------------------The server is runing on the port 5000---------------------')
