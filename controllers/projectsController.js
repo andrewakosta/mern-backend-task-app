@@ -36,6 +36,40 @@ exports.getAllProjects = async (req, res) => {
 }
 
 //Update a project by id 
-const updateProjectById = async (req, res)=>{
-    console.log('The testing son of a bitch')
+exports.updateProjectById = async (req, res) => {
+    
+    //Check for any error
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors:errors.array()})
+    }
+
+    //Get information from project
+    const {name} = req.body
+    const newProject = {}
+
+    if(name){
+        newProject.name = name;
+    }
+    try {
+        //Check ID
+        let project = await Project.findById(req.params.id)
+
+        //if project exist or no
+        if(!project){
+            return res.stauts(404).json({msg:'Project not found'})
+        }
+        //Check the creator of project
+        if(project.creator.toString() !== req.user.id){
+            return res.status(500).json({msg:'Unauthorized access'})
+        }
+        //update
+        project = await Project.findByIdAndUpdate({_id: req.params.id},
+                                                  { $set: newProject},
+                                                  { new:true})
+        res.json(project)                                          
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg:'Internal server error'})
+    }
 }

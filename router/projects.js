@@ -19,7 +19,7 @@ router.get('/',
     projectsController.getAllProjects
 )
 //update a project by ID
-router.get('/:id',
+router.put('/:id',
     auth, 
     [
         check('name', "THe project's name is mandatory").not().isEmpty()
