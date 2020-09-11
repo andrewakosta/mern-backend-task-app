@@ -24,3 +24,13 @@ exports.createProject = async (req, res) => {
         res.status(500).send('An error has courred')
     }
 }
+//Get all projects
+exports.getAllProjects = async (req, res) => {
+    try {
+        
+        const projects = await Project.find({creator: req.user.id})
+        res.json({projects})
+    } catch (error) {
+        console.log(error)
+    }
+}
