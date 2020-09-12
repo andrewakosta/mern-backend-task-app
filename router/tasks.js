@@ -18,4 +18,14 @@ router.get('/',
     taskController.getAllTasks
 )
 
+router.put('/:id',
+    auth,
+    taskController.updateTask
+)
+ 
+//Delete a project 
+router.delete('/:id',
+    auth,
+    taskController.deleteTask
+)
 module.exports = router
