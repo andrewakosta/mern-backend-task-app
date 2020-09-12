@@ -13,5 +13,9 @@ router.post('/',
     ],
     taskController.createTask
 )
+router.get('/', 
+    auth,
+    taskController.getAllTasks
+)
 
 module.exports = router
