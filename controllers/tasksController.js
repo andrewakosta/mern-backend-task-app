@@ -4,10 +4,36 @@ const {validationResult} = require('express-validator')
 
 //Create task
 exports.createTask = async (req, res) => {
+
     const errors  = validationResult(req)
-    console.log(errors)
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()})
     }
-    return res.status(200).send(req.body.name)
+    
+
+   
+
+    try {
+        //Extract the proyect and check if exist
+        const {project} = req.body
+        const projectDB = await Project.findById(project)
+        if(!projectDB){
+            return res.status(404).json({msg:'Project not found'})
+        }
+
+        //Check if current project belong to autenticated user
+        if(projectDB.creator.toString() !== req.user.id){
+            return res.status(401).json({msg:'Unauthoried access'})
+        }
+
+        //Create the task
+        const task = new Task(req.body)
+        await task.save()
+        res.json({task})
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({msg: 'Maybe you need check your fileds because an error has ocurred'})
+    }
+
 }
