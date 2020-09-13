@@ -1,11 +1,14 @@
 const express = require('express')
 const connetionDB =  require('./config/db')
-
+const cors = require('cors')
 //Created server
 const app = express()
 
 //connection to data base
 connetionDB()
+
+//Enable cors
+app.use(cors())
 
 //enable express.json
 app.use(express.json({extended : true}))
