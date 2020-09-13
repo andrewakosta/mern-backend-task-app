@@ -4,12 +4,7 @@ const jwt = require('jsonwebtoken')
 
 
 exports.userAuthenticate = async (req, res)=> {
-    //Check errors
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors:errors.array()})
-    }
-    
+ 
     const {email, password} = req.body
 
     try{
@@ -20,7 +15,7 @@ exports.userAuthenticate = async (req, res)=> {
         }
         //Check the password 
         if(password !== user.password){
-            res.status(400).json({msg:'THe password is wrong'})
+            res.status(404).json({msg:'THe password is wrong'})
         }
         //If evrething is okay create & firm token
         const payload = {
@@ -42,9 +37,9 @@ exports.userAuthenticate = async (req, res)=> {
     }
 }
 //Get teh user authenticated
-exports.userAuthenticate = async (req, res) => {
+exports.getUserAuthenticate = async (req, res) => {
     try {
-       const user = await  User.findById(req.user.id)
+       const user = await  User.findById(req.user.id).select('-password')
        res.json({user})
     } catch (error) {
         console.log(error)

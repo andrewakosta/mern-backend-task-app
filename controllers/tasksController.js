@@ -40,7 +40,7 @@ exports.createTask = async (req, res) => {
 }
 exports.getAllTasks = async (req,res) => {
     try {
-        const {project} = req.body
+        const {project} = req.query
         const projectDB = await Project.findById(project)
 
         if(!projectDB){
@@ -79,8 +79,8 @@ exports.updateTask = async (req, res)=> {
         }
         //Update task
         const newTask = {}
-        if(name)newTask.name = name
-        if(status)newTask.status = status
+        newTask.name = name
+        newTask.status = status
 
         //Save task
         task = await Task.findByIdAndUpdate({_id:req.params.id}, newTask, {new:true})
@@ -95,7 +95,7 @@ exports.updateTask = async (req, res)=> {
 exports.deleteTask = async (req, res)=> {
     try{
 
-        const {project} = req.body
+        const {project} = req.query
 
         let task = await Task.findById(req.params.id)
 
